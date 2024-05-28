@@ -9,35 +9,33 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import java.util.Date;
 import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
-
-import java.util.Date;
 
 @Table(name = "roles")
 @Entity
 @Data
 public class Role {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(nullable = false)
-    private Integer id;
+  @Id
+  @GeneratedValue(strategy = GenerationType.AUTO)
+  @Column(nullable = false)
+  private Integer id;
 
-    @Column(unique = true, nullable = false)
-    @Enumerated(EnumType.STRING)
-    private RoleEnum name;
+  @Column(unique = true, nullable = false)
+  @Enumerated(EnumType.STRING)
+  private RoleEnum name;
 
-    @Column(nullable = false)
-    private String description;
+  @Column(nullable = false)
+  private String description;
 
-    @CreationTimestamp
-    @Column(updatable = false, name = "created_at")
-    private Date createdAt;
+  @CreationTimestamp
+  @Column(updatable = false, name = "created_at")
+  private Date createdAt;
 
-    @UpdateTimestamp
-    @Column(name = "updated_at")
-    private Date updatedAt;
-
+  @UpdateTimestamp
+  @Column(name = "updated_at")
+  private Date updatedAt;
 }

@@ -2,7 +2,7 @@ plugins {
     java
     id("org.springframework.boot") version "3.2.6"
     id("io.spring.dependency-management") version "1.1.5"
-    id("com.diffplug.spotless") version "6.8.0"
+    id("com.diffplug.spotless") version "6.17.0"
 }
 
 group = "id.ten"
@@ -48,12 +48,9 @@ tasks.withType<Test> {
     useJUnitPlatform()
 }
 
-subprojects {
-    spotless {
-        java {
-            googleJavaFormat("1.15.0")
-            indentWithTabs(2)
-            indentWithSpaces(4)
-        }
+spotless {
+    java {
+        target("src/**/*.java")
+        googleJavaFormat() // or use any other formatter
     }
 }

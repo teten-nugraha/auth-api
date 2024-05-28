@@ -6,5 +6,5 @@ import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")
 public interface UserMappers {
-    User toUser(RegisterUserRecord registerUserRecord);
+  User toUser(RegisterUserRecord registerUserRecord);
 }

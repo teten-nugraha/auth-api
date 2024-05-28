@@ -13,17 +13,17 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/admins")
 @RestController
 public class AdminController {
-    private final UserService userService;
+  private final UserService userService;
 
-    public AdminController(UserService userService) {
-        this.userService = userService;
-    }
+  public AdminController(UserService userService) {
+    this.userService = userService;
+  }
 
-    @PostMapping
-    @PreAuthorize("hasRole('SUPER_ADMIN')")
-    public ResponseEntity<User> createAdministrator(@RequestBody RegisterUserRecord registerUserDto) {
-        User createdAdmin = userService.createAdministrator(registerUserDto);
+  @PostMapping
+  @PreAuthorize("hasRole('SUPER_ADMIN')")
+  public ResponseEntity<User> createAdministrator(@RequestBody RegisterUserRecord registerUserDto) {
+    User createdAdmin = userService.createAdministrator(registerUserDto);
 
-        return ResponseEntity.ok(createdAdmin);
-    }
+    return ResponseEntity.ok(createdAdmin);
+  }
 }
