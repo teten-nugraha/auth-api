@@ -7,6 +7,7 @@ import id.ten.authapi.records.LoginResponseRecord;
 import id.ten.authapi.records.RegisterUserRecord;
 import id.ten.authapi.service.AuthenticationService;
 import id.ten.authapi.service.JwtService;
+import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -27,14 +28,15 @@ public class AuthenticationController {
   }
 
   @PostMapping("/signup")
-  public ResponseEntity<GenericResponse<User>> register(@RequestBody RegisterUserRecord payload) {
+  public ResponseEntity<GenericResponse<User>> register(
+      @RequestBody @Valid RegisterUserRecord payload) {
     User registeredUser = authenticationService.signup(payload);
     return ResponseEntity.ok(GenericResponse.success(registeredUser));
   }
 
   @PostMapping("/login")
   public ResponseEntity<GenericResponse<LoginResponseRecord>> authenticate(
-      @RequestBody LoginRecord payload) {
+      @RequestBody @Valid LoginRecord payload) {
     User authenticatedUser = authenticationService.authenticate(payload);
     String jwtToken = jwtService.generateToken(authenticatedUser);
 

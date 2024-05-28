@@ -21,7 +21,7 @@ public class GenericResponse<T> {
     return GenericResponse.<T>builder().message("SUCCESS!").data(data).success(true).build();
   }
 
-  public static <T> GenericResponse<T> error() {
-    return GenericResponse.<T>builder().message("ERROR!").success(false).build();
+  public static <T> GenericResponse<T> error(T data) {
+    return GenericResponse.<T>builder().message("ERROR!").data(data).success(false).build();
   }
 }
