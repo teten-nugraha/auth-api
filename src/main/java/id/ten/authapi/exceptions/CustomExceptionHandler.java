@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 @RestControllerAdvice
 public class CustomExceptionHandler {
 
+  @ResponseStatus(HttpStatus.NOT_FOUND)
   @ExceptionHandler(DataNotFoundException.class)
   public GenericResponse<String> handleUserNotFoundException(DataNotFoundException exception) {
     return GenericResponse.error(exception.getMessage());
