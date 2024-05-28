@@ -12,6 +12,11 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 @RestControllerAdvice
 public class CustomExceptionHandler {
 
+  @ExceptionHandler(DataNotFoundException.class)
+  public GenericResponse<String> handleUserNotFoundException(DataNotFoundException exception) {
+    return GenericResponse.error(exception.getMessage());
+  }
+
   @ResponseStatus(HttpStatus.BAD_REQUEST)
   @ExceptionHandler(MethodArgumentNotValidException.class)
   public GenericResponse<Map<String, String>> handleInvalidArgument(
