@@ -1,5 +1,6 @@
 package id.ten.authapi.controllers;
 
+import id.ten.authapi.dto.GenericResponse;
 import id.ten.authapi.model.User;
 import id.ten.authapi.service.UserService;
 import java.util.List;
@@ -11,7 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-@RequestMapping("/users")
+@RequestMapping("/api/users")
 @RestController
 public class UserController {
 
@@ -23,19 +24,19 @@ public class UserController {
 
   @GetMapping("/me")
   @PreAuthorize("isAuthenticated()")
-  public ResponseEntity<User> authenticatedUser() {
+  public ResponseEntity<GenericResponse<User>> authenticatedUser() {
     Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
     User currentUser = (User) authentication.getPrincipal();
 
-    return ResponseEntity.ok(currentUser);
+    return ResponseEntity.ok(GenericResponse.success(currentUser));
   }
 
   @GetMapping
   @PreAuthorize("hasAnyRole('ADMIN', 'SUPER_ADMIN')")
-  public ResponseEntity<List<User>> allUsers() {
+  public ResponseEntity<GenericResponse<List<User>>> allUsers() {
     List<User> users = userService.allUsers();
 
-    return ResponseEntity.ok(users);
+    return ResponseEntity.ok(GenericResponse.success(users));
   }
 }

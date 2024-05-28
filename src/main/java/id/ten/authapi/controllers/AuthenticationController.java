@@ -1,5 +1,6 @@
 package id.ten.authapi.controllers;
 
+import id.ten.authapi.dto.GenericResponse;
 import id.ten.authapi.model.User;
 import id.ten.authapi.records.LoginRecord;
 import id.ten.authapi.records.LoginResponseRecord;
@@ -12,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-@RequestMapping("/auth")
+@RequestMapping("/api/auth")
 @RestController
 public class AuthenticationController {
 
@@ -26,20 +27,20 @@ public class AuthenticationController {
   }
 
   @PostMapping("/signup")
-  public ResponseEntity<User> register(@RequestBody RegisterUserRecord payload) {
+  public ResponseEntity<GenericResponse<User>> register(@RequestBody RegisterUserRecord payload) {
     User registeredUser = authenticationService.signup(payload);
-
-    return ResponseEntity.ok(registeredUser);
+    return ResponseEntity.ok(GenericResponse.success(registeredUser));
   }
 
   @PostMapping("/login")
-  public ResponseEntity<LoginResponseRecord> authenticate(@RequestBody LoginRecord payload) {
+  public ResponseEntity<GenericResponse<LoginResponseRecord>> authenticate(
+      @RequestBody LoginRecord payload) {
     User authenticatedUser = authenticationService.authenticate(payload);
     String jwtToken = jwtService.generateToken(authenticatedUser);
 
     LoginResponseRecord loginResponse =
         new LoginResponseRecord(jwtToken, jwtService.getExpirationTime());
 
-    return ResponseEntity.ok(loginResponse);
+    return ResponseEntity.ok(GenericResponse.success(loginResponse));
   }
 }

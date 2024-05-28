@@ -1,5 +1,6 @@
 package id.ten.authapi.controllers;
 
+import id.ten.authapi.dto.GenericResponse;
 import id.ten.authapi.model.User;
 import id.ten.authapi.records.RegisterUserRecord;
 import id.ten.authapi.service.UserService;
@@ -21,9 +22,9 @@ public class AdminController {
 
   @PostMapping
   @PreAuthorize("hasRole('SUPER_ADMIN')")
-  public ResponseEntity<User> createAdministrator(@RequestBody RegisterUserRecord registerUserDto) {
+  public ResponseEntity<GenericResponse<User>> createAdministrator(
+      @RequestBody RegisterUserRecord registerUserDto) {
     User createdAdmin = userService.createAdministrator(registerUserDto);
-
-    return ResponseEntity.ok(createdAdmin);
+    return ResponseEntity.ok(GenericResponse.success(createdAdmin));
   }
 }
